@@ -8,6 +8,7 @@ export interface LocationResponse {
   status: number;
   message: string;
   location?: Location; // Optional, because it won't be present on error
+  locations?: Location[];
 }
 
 @Injectable()
@@ -17,9 +18,37 @@ export class AppService {
     private readonly locationRepository: Repository<Location>,
   ) {}
 
-  async createLocation(name: string, parentId?: number): Promise<Location> {
+  async createLocation(name: string, parentId?: number): Promise<LocationResponse> {
+
+    // Check for empty update data
+    if (name === undefined || parentId === undefined) {
+      const errorMessage = 'Missing required fields: name, parentId are required.';
+      console.error(errorMessage);
+      return { status: 400, message: errorMessage };
+    }
+
+    // Validate data types
+    if (typeof name !== 'string') {
+      const errorMessage = 'Invalid data type for name. It must be a string.';
+      console.error(errorMessage);
+      return { status: 400, message: errorMessage }; // Bad Request
+    }
+    if (typeof parentId !== 'number') {
+        const errorMessage = 'Invalid data type for parentId. They must be numbers.';
+        console.error(errorMessage);
+        return { status: 400, message: errorMessage }; // Bad Request
+    }
+
+    // Create a new location instance
     const location = this.locationRepository.create({ name, parentId });
-    return await this.locationRepository.save(location);
+    try {
+      await this.locationRepository.save(location);
+    } catch (error) {
+      console.error('Error saving location:', error);
+      return { status: 500, message: 'An error occurred while creating the location.' }; // Internal Server Error
+    }
+
+    return { status: 201, message: 'Location created successfully.', location: location }; // Created
   }
 
   async updateLocation(id: number, name: string): Promise<LocationResponse> {
@@ -71,11 +100,46 @@ export class AppService {
     }; 
   }
 
-  async deleteLocation(id: number): Promise<void> {
-    await this.locationRepository.delete(id);
+  async deleteLocation(id: number): Promise<LocationResponse> {
+
+    // Check for invalid ID
+    if (id <= 0) {
+      const errorMessage = `Invalid ID: ${id}. ID must be a positive number.`;
+      console.error(errorMessage);
+      return { status: 400, message: errorMessage };
+    }
+
+    try {
+      let deleteRes = await this.locationRepository.delete(id);
+      // If the location does not exist
+      if (deleteRes.affected === 0){
+        const errorMessage = `Location with id ${id} not found.`;
+        console.error(errorMessage);
+        return { status: 404, message: errorMessage }; // Not Found
+      }
+    } catch (error) {
+      console.error('Error deleting location:', error);
+      const errorMessage = 'An error occurred while deleting the location.';
+      return { status: 500, message: errorMessage }; // Internal Server Error
+    }
+
+    return { status: 200, message: 'Location deleted successfully.' }; // OK
   }
 
-  async getAllLocatins(): Promise<Location[]> {
-    return this.locationRepository.find();
+  async getAllLocations(): Promise<LocationResponse> {
+    try {
+      // Fetch locations
+      const locations = await this.locationRepository.find();
+
+      // Check if locations were found
+      if (locations.length === 0) {
+          return { status: 204, message: 'No locations found.' }; // No Content
+      }
+
+      return { status: 200, message: 'Locations retrieved successfully.', locations }; // OK
+    } catch (error) {
+        console.error('Error retrieving locations:', error);
+        return { status: 500, message: 'An error occurred while retrieving locations.' }; // Internal Server Error
+    }
   }
 }

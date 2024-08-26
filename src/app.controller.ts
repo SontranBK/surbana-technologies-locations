@@ -22,6 +22,6 @@ export class AppController {
 
   @Get()
   getAllLocations() {
-    return this.locationService.getAllLocatins();
+    return this.locationService.getAllLocations();
   }
 }
