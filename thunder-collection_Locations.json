@@ -1,0 +1,69 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Locations",
+    "collectionId": "55d6560d-4423-424a-bdb2-8679f282cba3",
+    "dateExported": "2024-08-26T09:55:57.815Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "558b8565-6d6a-48a2-8a05-4f985ac7da5c",
+            "colId": "55d6560d-4423-424a-bdb2-8679f282cba3",
+            "containerId": "",
+            "name": "createLocation",
+            "url": "http://localhost:3000/locations",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-08-26T06:33:43.696Z",
+            "modified": "2024-08-26T09:45:41.191Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"building\": \"A\",\n  \"name\": \"Level 2\",\n  \"locationNumber\": \"A-01\",\n  \"area\": 12300000,\n  \"parentId\": 1\n}\n",
+                "form": []
+            }
+        },
+        {
+            "_id": "fd246074-b755-4706-a590-a82f6ad217a4",
+            "colId": "55d6560d-4423-424a-bdb2-8679f282cba3",
+            "containerId": "",
+            "name": "getLocation",
+            "url": "http://localhost:3000/locations",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-08-26T06:34:12.308Z",
+            "modified": "2024-08-26T06:35:01.078Z",
+            "headers": []
+        },
+        {
+            "_id": "5edb9cfe-4479-4743-9c88-306cb2e099a4",
+            "colId": "55d6560d-4423-424a-bdb2-8679f282cba3",
+            "containerId": "",
+            "name": "updateLocation",
+            "url": "http://localhost:3000/locations/1",
+            "method": "PUT",
+            "sortNum": 20000,
+            "created": "2024-08-26T06:47:27.586Z",
+            "modified": "2024-08-26T09:45:27.517Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"building\": \"B\",\n  \"name\": \"Car parking\",\n  \"locationNumber\": \"AVSREDC\",\n  \"area\": 123123123,\n  \"parentId\": 1\n}\n",
+                "form": []
+            }
+        },
+        {
+            "_id": "3eed184d-ed2b-4349-80b6-3b6ccf55957b",
+            "colId": "55d6560d-4423-424a-bdb2-8679f282cba3",
+            "containerId": "",
+            "name": "deleteLocation",
+            "url": "http://localhost:3000/locations/2",
+            "method": "DELETE",
+            "sortNum": 30000,
+            "created": "2024-08-26T06:37:08.598Z",
+            "modified": "2024-08-26T09:41:33.104Z",
+            "headers": []
+        }
+    ],
+    "ref": "0qwnwW1raYjYE0-Ss2cDuG0wPnx5OxxNSEabiM7tI2yvEZeA9A2Tcgd3MUThY2qDIjP89s3VegnCGvbDy24IAQ"
+}

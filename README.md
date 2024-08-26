@@ -1,85 +1,121 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Surbana-technologies-locations
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This project is a location management application built using **NestJS**, **TypeORM**, and a relational database (e.g., PostgreSQL). The application allows users to create, read, update, and delete location data efficiently. It provides a RESTful API for developers to integrate location services into their applications seamlessly.
 
-## Project setup
+### Key Features
+
+- **CRUD Operations**: Perform Create, Read, Update, and Delete operations on location data.
+- **Data Validation**: Ensures that all incoming data is validated for accuracy and consistency.
+- **Error Handling**: Robust error handling to provide meaningful feedback to users and developers.
+- **Database Integration**: Uses TypeORM for seamless interaction with the database, supporting various database systems.
+- **Docker Support**: Easily deployable using Docker, allowing for consistent environments across development and production.
+
+This application is designed to be scalable and maintainable, making it a great starting point for developers looking to build location-based services or integrate location functionalities into their existing applications.
+
+## Table of Contents
+
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Documentation](#api-documentation)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+## Technologies Used
+
+- Node.js
+- TypeScript
+- NestJS
+- TypeORM
+- PostgreSQL
+- Docker
+
+## Installation
+
+Follow these steps to set up the project locally on your machine.
+
+### Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js**: Version 14.x or later. You can download it from [nodejs.org](https://nodejs.org/).
+- **npm**: Node Package Manager (comes with Node.js).
+- **PostgreSQL** (or your chosen database): Make sure you have it installed and running. You can download it from [postgresql.org](https://www.postgresql.org/download/) or use Docker to run it.
+- **Docker** (optional): If you prefer to run the database in a Docker container, ensure Docker is installed. You can download it from [docker.com](https://www.docker.com/get-started).
+
+### Step 1: Clone the Repository
+
+Clone the repository to your local machine using Git
+
+### Step 2: Navigate to the Project Directory
+
+Change to the project directory:
 
 ```bash
-$ npm install
+cd surbana-technologies-locations
 ```
 
-## Compile and run the project
+### Step 3: Install Dependencies
+
+Install the project dependencies using npm:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
+This command will read the `package.json` file and install all necessary packages listed in the `dependencies` and `devDependencies` sections.
 
-## Run tests
+### Step 4: Set Up Environment Variables
+
+Create a `.env` file in the root of the project based on the provided `.env.example` file. This file will contain your database configuration and other environment variables.
+
+### Step 5: Run the Application
+
+To start the application, run the following command:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+docker-compose up -d
+npm run start:dev
 ```
 
-## Resources
+This command will start the application in development mode, using the `tsconfig.json` file to compile the TypeScript code and run the NestJS application.
 
-Check out a few resources that may come in handy when working with NestJS:
+### Step 7: Access the Application
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Once the application is running, you can access it at `http://localhost:3000` (or the port specified in your configuration).
 
-## Support
+### Troubleshooting
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+If you encounter any issues during installation, check the following:
 
-## Stay in touch
+- Ensure that all services (Node.js, PostgreSQL) are running.
+- Verify that your environment variables are correctly set in the `.env` file.
+- Check the console for any error messages and address them accordingly.
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+By following these steps, you should be able to set up and run the application locally. If you have any questions or need further assistance, feel free to reach out!
+
+## API Endpoints
+
+Provide a brief overview of the available API endpoints.
+
+- `GET /api/locations` - Retrieve all locations
+- `POST /api/locations` - Create a new location
+- `PUT /api/locations/:id` - Update a location by ID
+- `DELETE /api/locations/:id` - Delete a location by ID
+
+## Contributing
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/YourFeature`).
+3. Make your changes and commit them (`git commit -m 'Add new feature'`).
+4. Push to the branch (`git push origin feature/YourFeature`).
+5. Create a pull request.
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
