@@ -18,29 +18,33 @@ export class AppService {
     private readonly locationRepository: Repository<Location>,
   ) {}
 
-  async createLocation(name: string, parentId?: number): Promise<LocationResponse> {
+  async createLocation(name: string, building: string, locationNumber: string, area: number, parentId?: number): Promise<LocationResponse> {
 
     // Check for empty update data
-    if (name === undefined || parentId === undefined) {
-      const errorMessage = 'Missing required fields: name, parentId are required.';
+    if (name === undefined 
+      || building === undefined
+      || area === undefined
+      || parentId === undefined
+      || locationNumber === undefined) {
+      const errorMessage = 'Missing required fields: building, name, locationNumber, area, parentId are required.';
       console.error(errorMessage);
       return { status: 400, message: errorMessage };
     }
 
     // Validate data types
-    if (typeof name !== 'string') {
-      const errorMessage = 'Invalid data type for name. It must be a string.';
+    if (typeof name !== 'string' || typeof building !== 'string' || typeof locationNumber !== 'string') {
+      const errorMessage = 'Invalid data type for name, or building, or locationNumber. It must be a string.';
       console.error(errorMessage);
       return { status: 400, message: errorMessage }; // Bad Request
     }
-    if (typeof parentId !== 'number') {
-        const errorMessage = 'Invalid data type for parentId. They must be numbers.';
+    if (typeof parentId !== 'number' || typeof area !== 'number') {
+        const errorMessage = 'Invalid data type for area, or parentId. They must be numbers.';
         console.error(errorMessage);
         return { status: 400, message: errorMessage }; // Bad Request
     }
 
     // Create a new location instance
-    const location = this.locationRepository.create({ name, parentId });
+    const location = this.locationRepository.create({ building, name, locationNumber, area, parentId });
     try {
       await this.locationRepository.save(location);
     } catch (error) {
@@ -51,7 +55,14 @@ export class AppService {
     return { status: 201, message: 'Location created successfully.', location: location }; // Created
   }
 
-  async updateLocation(id: number, name: string): Promise<LocationResponse> {
+  async updateLocation(
+    id: number, 
+    name: string, 
+    building: string, 
+    locationNumber: string, 
+    area: number, 
+    parentId?: number
+  ): Promise<LocationResponse> {
     
     // Check for invalid ID
     if (id <= 0) {
@@ -61,10 +72,22 @@ export class AppService {
     }
     
     // Check for empty update data
-    if (name === undefined) {
-      const errorMessage = 'No update data provided.';
+    if (name === undefined || building === undefined || locationNumber === undefined || area === undefined || parentId === undefined) {
+      const errorMessage = 'Missing update data, requied: building, name, locationNumber, area, parentId';
       console.error(errorMessage);
       return { status: 400, message: errorMessage };
+    }
+
+    // Validate data types
+    if (typeof name !== 'string' || typeof building !== 'string' || typeof locationNumber !== 'string') {
+      const errorMessage = 'Invalid data type for name, or building, or locationNumber. It must be a string.';
+      console.error(errorMessage);
+      return { status: 400, message: errorMessage }; // Bad Request
+    }
+    if (typeof parentId !== 'number' || typeof area !== 'number') {
+        const errorMessage = 'Invalid data type for area, or parentId. They must be numbers.';
+        console.error(errorMessage);
+        return { status: 400, message: errorMessage }; // Bad Request
     }
       
     // Define FindOneOptions to find the location
@@ -82,7 +105,13 @@ export class AppService {
       return { status: 404, message: errorMessage }; // Not Found
     }
 
-    location.name = name;
+    // Update the location object
+    if (name) location.name = name;
+    if (building) location.building = building;
+    if (locationNumber) location.locationNumber = locationNumber;
+    if (area) location.area = area;
+    if (parentId) location.parentId = parentId;
+
     // Save the updated location back to the database
     try {
       await this.locationRepository.save(location);

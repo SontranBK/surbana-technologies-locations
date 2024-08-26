@@ -6,13 +6,15 @@ export class AppController {
   constructor(private readonly locationService: AppService) {}
 
   @Post()
-  async createLocation(@Body() { name, parentId }: { name: string; parentId: number })  {
-    return await this.locationService.createLocation(name, parentId);
+  async createLocation(@Body() { name, building, locationNumber, area, parentId }: 
+    { name: string; building: string, locationNumber: string, area: number; parentId: number })  {
+    return await this.locationService.createLocation(name, building, locationNumber, area, parentId);
   }
 
   @Put(':id')
-  async updateLocation(@Param('id') id: number, @Body('name') name: string) {
-    return await this.locationService.updateLocation(id, name);
+  async updateLocation(@Param('id') id: number, @Body() { name, building, locationNumber, area, parentId }:
+  { name: string; building: string, locationNumber: string, area: number; parentId: number }) {
+    return await this.locationService.updateLocation(id, name, building, locationNumber, area, parentId);
   }
 
   @Delete(':id')
