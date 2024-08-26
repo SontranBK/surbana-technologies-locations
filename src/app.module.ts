@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { Location } from './app.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
@@ -12,9 +13,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'location_user',
       password: 'location_password',
       database: 'location_db',
-      entities: [],
+      entities: [Location],
       synchronize: true,
     }),
+    TypeOrmModule.forFeature([Location]),
   ],
   controllers: [AppController],
   providers: [AppService],
